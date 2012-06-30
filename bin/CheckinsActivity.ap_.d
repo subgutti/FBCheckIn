@@ -1,0 +1,24 @@
+/Users/subhash/Android/Work/Checkins/bin/CheckinsActivity.ap_ \
+ : /Users/subhash/Android/facebook-android-sdk/facebook/res/drawable/close.png \
+/Users/subhash/Android/facebook-android-sdk/facebook/res/drawable/facebook_icon.png \
+/Users/subhash/Android/facebook-android-sdk/facebook/res/drawable-hdpi/close.png \
+/Users/subhash/Android/facebook-android-sdk/facebook/res/drawable-hdpi/facebook_icon.png \
+/Users/subhash/Android/facebook-android-sdk/facebook/res/drawable-ldpi/close.png \
+/Users/subhash/Android/facebook-android-sdk/facebook/res/drawable-ldpi/facebook_icon.png \
+/Users/subhash/Android/facebook-android-sdk/facebook/res/drawable-xhdpi/close.png \
+/Users/subhash/Android/facebook-android-sdk/facebook/bin/res/drawable/close.png \
+/Users/subhash/Android/facebook-android-sdk/facebook/bin/res/drawable/facebook_icon.png \
+/Users/subhash/Android/facebook-android-sdk/facebook/bin/res/drawable-hdpi/close.png \
+/Users/subhash/Android/facebook-android-sdk/facebook/bin/res/drawable-hdpi/facebook_icon.png \
+/Users/subhash/Android/facebook-android-sdk/facebook/bin/res/drawable-ldpi/close.png \
+/Users/subhash/Android/facebook-android-sdk/facebook/bin/res/drawable-ldpi/facebook_icon.png \
+/Users/subhash/Android/facebook-android-sdk/facebook/bin/res/drawable-xhdpi/close.png \
+/Users/subhash/Android/Work/Checkins/res/drawable-hdpi/ic_launcher.png \
+/Users/subhash/Android/Work/Checkins/res/drawable-ldpi/ic_launcher.png \
+/Users/subhash/Android/Work/Checkins/res/drawable-mdpi/ic_launcher.png \
+/Users/subhash/Android/Work/Checkins/res/layout/main.xml \
+/Users/subhash/Android/Work/Checkins/res/values/strings.xml \
+/Users/subhash/Android/Work/Checkins/bin/res/drawable-hdpi/ic_launcher.png \
+/Users/subhash/Android/Work/Checkins/bin/res/drawable-ldpi/ic_launcher.png \
+/Users/subhash/Android/Work/Checkins/bin/res/drawable-mdpi/ic_launcher.png \
+/Users/subhash/Android/Work/Checkins/AndroidManifest.xml \
