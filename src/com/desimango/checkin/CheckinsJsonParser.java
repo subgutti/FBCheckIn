@@ -1,5 +1,7 @@
 package com.desimango.checkin;
 
+import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,13 +43,40 @@ public class CheckinsJsonParser {
          */
         try {
         	
-			//TODO: fix this parser
-			JSONObject json = new JSONObject(response);
+			/* 
+			 * Response structure:
+			 * ==================
+			 * [
+			 * 	{ "query" : "query1", "fql_result_set" : "..checkins.." },
+			 * 	{ "query" : "query2", "fql_result_set" : "..users.." },
+			 * 	{ "query" : "query3", "fql_result_set" : "..pages.." }
+			 * ]
+			 * 
+			 */
+        	
+			JSONArray results = new JSONArray(response);
+			
+			JSONObject checkInDictionary = results.getJSONObject(0);
+			JSONObject userDictionary = results.getJSONObject(1);
+			JSONObject pagesDictionary = results.getJSONObject(2);
+			
+			JSONArray checkIns = checkInDictionary.getJSONArray("fql_result_set");
+			JSONArray users = userDictionary.getJSONArray("fql_result_set");
+			JSONArray pages = pagesDictionary.getJSONArray("fql_result_set");
+			
+			// TODO Parsers for individual objects!
+			
+			/* ArrayList<CheckInPostItem> checkInArray = new ArrayList<CheckInPostItem>();
+			
+			for (int i=0; i<checkIns.length(); i++) {
+				JSONObject checkIn = checkIns.getJSONObject(i);
+				CheckInPostItem checkInItem = new CheckInPostItem(checkIn);
+				checkInArray.add(checkInItem);
+			} */
 
-        	JSONArray data = json.getJSONArray("data");
-			
-			
-			
+//			JSONObject data = json.getJSONObject("data");
+//        	JSONArray data = json.getJSONArray("data");
+        	
         	//for(int i=0; i<json.length(); i++) {
         		//Log.d(LOGTAG, "json response - i " + i + " data :" + json.get(i));
         	//}
