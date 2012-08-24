@@ -1,6 +1,5 @@
 package com.desimango.checkin;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,17 +8,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 import com.desimango.checkin.SessionEvents.AuthListener;
 import com.desimango.checkin.SessionEvents.LogoutListener;
-import com.facebook.android.*;
+import com.facebook.android.AsyncFacebookRunner;
+import com.facebook.android.DialogError;
+import com.facebook.android.Facebook;
+import com.facebook.android.Facebook.DialogListener;
+import com.facebook.android.FacebookError;
 import com.facebook.android.R;
-import com.facebook.android.Facebook.*;
 
 public class CheckinsActivity extends Activity {
 	
@@ -101,15 +98,20 @@ public class CheckinsActivity extends Activity {
      * Request user name, and picture to show on the main screen.
      */
     private void requestCheckInData () {
-    	
-    	//String query = "SELECT post_id, actor_id, message, created_time, tagged_ids, comments, likes, attribution FROM stream WHERE filter_key='others' AND type=285 AND created_time>1262196000 LIMIT 50"; 
-    	
-    	//String query = "SELECT post_id, actor_id, message, created_time, tagged_ids, comments, likes, attribution FROM stream WHERE filter_key='others' AND type=285 AND created_time<1262196000 LIMIT 50"; 
-    	//String query = "SELECT checkin_id, author_uid, page_id, app_id, post_id, coords, timestamp, tagged_uids, message FROM checkin WHERE author_uid= me()" +
-    			//"or author_uid IN (SELECT uid2 FROM friend WHERE uid1=me()) ORDER BY timestamp DESC ";
-        //Bundle params = new Bundle();
-        //params.putString("method", "fql.query");
-        //params.putString("query", query);
+    	// Construct multiquery that returns checkin, user and place data.
+        JSONObject jsonFQL = new JSONObject();
+        try {
+        	jsonFQL.put("query1", "SELECT checkin_id, author_uid, page_id, coords, timestamp FROM checkin WHERE (author_uid IN (SELECT uid2 FROM friend WHERE uid1 = me()) OR author_uid=me()) ORDER BY timestamp DESC LIMIT 50");
+            jsonFQL.put("query2", "SELECT uid, username, first_name, middle_name, last_name, name, pic, sex, about_me FROM user WHERE uid in (SELECT author_uid FROM #query1)");
+            jsonFQL.put("query3", "SELECT page_id, name, description, categories, pic, fan_count, website, checkins, location FROM page WHERE page_id IN (SELECT page_id FROM #query1)");	        	
+        }
+        catch(JSONException ex) {
+        	return;
+        }
+
+        Bundle params = new Bundle();
+        params.putString("method", "fql.multiquery");
+        params.putString("queries", jsonFQL.toString());
         
     	/* //Multi-query
     	String query1 = 
@@ -117,11 +119,12 @@ public class CheckinsActivity extends Activity {
     	*/
     	
     	//batched request
-    	String batch = "[ {\"method\":\"GET\",\"relative_url\":\"search?type=checkin\"} ]";
-    	Bundle params = new Bundle ();
-    	params.putString("batch", batch);
+//    	String batch = "[ {\"method\":\"GET\",\"relative_url\":\"search?type=checkin\"} ]";
+//    	String batch = "[ {\"method\":\"GET\",\"relative_url\":\"me/checkins\"} ]";
+//    	Bundle params = new Bundle ();
+//    	params.putString("batch", batch);
     	
-    	Utility.mAsyncRunner.request("/", params, "POST", new CheckInsRequestListener(), null);
+    	Utility.mAsyncRunner.request(params, new CheckInsRequestListener());
     }
     
     public class FQLRequestListener extends BaseRequestListener {
